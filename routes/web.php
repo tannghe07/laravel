@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 //user route
-Route::resource('user', UserController::class);
+Route::middleware('checkadmin')->resource('user', UserController::class);
 
 //post route
 Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
