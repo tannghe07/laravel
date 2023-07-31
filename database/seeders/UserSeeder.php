@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $user->email='admin@gmail.com';
         $user->password=bcrypt('admin');
         $user->is_admin=true;
-        $user->is_active=1;
+        $user->is_active=true;
         $user->save();
 
         User::factory()->count(10)->hasPosts(2)->create();

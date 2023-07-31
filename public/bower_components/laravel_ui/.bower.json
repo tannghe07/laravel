@@ -1,0 +1,14 @@
+{
+  "name": "laravel_ui",
+  "homepage": "https://github.com/tannghe07/laravel_ui",
+  "_release": "817227fc33",
+  "_resolution": {
+    "type": "branch",
+    "branch": "main",
+    "commit": "817227fc33e35483555819ef7794960760765107"
+  },
+  "_source": "https://github.com/tannghe07/laravel_ui.git",
+  "_target": "main",
+  "_originalSource": "https://github.com/tannghe07/laravel_ui.git",
+  "_direct": true
+}
