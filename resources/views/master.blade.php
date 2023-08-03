@@ -37,10 +37,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="{{route('profile.edit')}}" class="nav-link">Home</a>
             </li>
         </ul>
 
@@ -183,7 +180,7 @@
                     <img src="{{ \Illuminate\Support\Facades\URL::asset('bower_components/laravel_ui/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->username}}</a>
                 </div>
             </div>
 
@@ -204,7 +201,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-header">EXAMPLES</li>
+                    <li class="nav-header">OPTIONS</li>
+                    @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                     <li class="nav-item">
                         <a href="{{route('user.index')}}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
@@ -213,14 +211,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('posts.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-columns"></i>
-                            <p>
-                                Posts
-                            </p>
-                        </a>
-                    </li>
+                    @endif
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -240,7 +231,9 @@
     </aside>
 
     <div class="content-wrapper">
-        @yield('main')
+        <div class="container-fluid">
+            @yield('main')
+        </div>
     </div>
 
     <footer class="main-footer">

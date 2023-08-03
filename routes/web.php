@@ -20,24 +20,41 @@ Route::get('/', function () {
     return view('master');
 })->middleware(['auth', 'verified']);
 
-Route::resource('user', UserController::class)->middleware('auth');
+Route::prefix('user')
+    ->middleware([
+        'auth',
+        'checkadmin',
+    ])
+    ->group(function () {
+        Route::name('user.')
+            ->controller(UserController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/create', 'store')->name('store');
+                Route::get('/delete/{id}', 'destroy')->name('destroy');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::post('/edit/{id}', 'update')->name('update');
+            });
 
-Route::middleware('auth')->prefix('posts')->controller(PostController::class)->name('posts.')->group(function(){
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'destroy')->name('delete');
-});
+        Route::name('post.')
+            ->controller(PostController::class)
+            ->group(function () {
+                Route::get('/{user}/post', 'index')->name('index');
+                Route::get('/{user}/post/create', 'create')->name('create');
+                Route::post('/{user}/post/create', 'store')->name('store');
+                Route::get('{user}/post/delete/{id}', 'destroy')->name('destroy');
+                Route::get('{user}/post/edit/{id}', 'edit')->name('edit');
+                Route::post('{user}/post/edit/{id}', 'update')->name('update');
+            });
+    });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
