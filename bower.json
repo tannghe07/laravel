@@ -1,0 +1,20 @@
+{
+  "name": "example-app",
+  "description": "",
+  "main": "",
+  "authors": [
+    "tannghe07 <tannghe07@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tannghe07/laravel",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "laravel_ui": "https://github.com/tannghe07/laravel_ui.git#main"
+  }
+}
